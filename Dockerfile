@@ -1,5 +1,5 @@
 # Use a base image for Python that works well on Cloud Run
-FROM python:3.12.5-slim-buster
+FROM python:3.12-slim
 
 # Set the working directory
 WORKDIR /usr/src/app
