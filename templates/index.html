@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mål Klasseværelset</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #0056b3;
+            text-align: center;
+        }
+        form {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        select, input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .results p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .results strong {
+            color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mål Klasseværelset</h1>
+        <p>Indtast venligst jeres måling nedenfor. Husk, at hvis I er flere grupper, der måler det samme, beregnes gennemsnittet.</p>
+
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <label for="dimension">Hvilken dimension har I målt?</label>
+            <select id="dimension" name="dimension" required>
+                <option value="">Vælg en dimension</option>
+                <option value="længde">Længde</option>
+                <option value="bredde">Bredde</option>
+                <option value="højde">Højde</option>
+            </select>
+
+            <label for="value">Indtast jeres måling i meter (f.eks. 8.5 for 8 meter og 50 centimeter):</label>
+            <input type="text" id="value" name="value" placeholder="F.eks. 7.35" required>
+
+            <input type="submit" value="Indsend Måling">
+        </form>
+
+        <hr>
+
+        <div class="results">
+            <h2>Aktuelle Målinger og Beregninger</h2>
+            <p><strong>Længde:</strong> {{ "%.3f"|format(length) if length else 'Ikke indtastet endnu' }} meter</p>
+            <p><strong>Bredde:</strong> {{ "%.3f"|format(width) if width else 'Ikke indtastet endnu' }} meter</p>
+            <p><strong>Højde:</strong> {{ "%.3f"|format(height) if height else 'Ikke indtastet endnu' }} meter</p>
+            <p><strong>Areal:</strong> {{ "%.3f"|format(area) if area else 'Ikke nok data' }} kvadratmeter (m²)</p>
+            <p><strong>Rumfang:</strong> {{ "%.3f"|format(volume) if volume else 'Ikke nok data' }} kubikmeter (m³)</p>
+        </div>
+    </div>
+</body>
+</html>
