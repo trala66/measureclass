@@ -150,5 +150,5 @@ def index():
                            volume=volume)
 
 if __name__ == '__main__':
-    #app.run(debug=True) # Sæt debug=False i produktion
-    app.run(host='0.0.0.0', port=5000) # global access
+    port = int(os.environ.get("PORT", 5000))  # Railway sets this
+    app.run(host='0.0.0.0', port=port)
